@@ -4,8 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './components/Home'
-import Index from './components'
-import Details from './components/details'
+import Index from './components/Index'
+import Details from './components/Details'
 
 
 const AppRoutes = () =>{
