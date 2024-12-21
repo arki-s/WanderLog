@@ -5,7 +5,6 @@ const Details = () => {
   return (
     <div>
     <div>details</div>
-    <div><Link to="/">Home</Link></div>
     </div>
   )
 }
