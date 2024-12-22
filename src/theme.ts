@@ -6,8 +6,9 @@ export interface Theme {
     secondaryLight: string;
   };
 
-  typography: {
-    fontFamily: string;
+  fontFamily: {
+    primary: string;
+    secondary: string;
   }
 
 }
@@ -20,8 +21,9 @@ const theme: Theme = {
     secondaryLight: "#F8FDCF",
   },
 
-  typography: {
-    fontFamily: "'Zen Kurenaido', serif",
+  fontFamily: {
+    primary: "'Zen Kurenaido', serif",
+    secondary: "'RocknRoll One', serif",
   }
 
 }
