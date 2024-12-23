@@ -7,17 +7,19 @@ import Home from './components/Home'
 import Index from './components/Index'
 import Details from './components/Details'
 import Header from './components/Header'
+import Create from './components/Create'
 
 
-const AppRoutes = () =>{
+const AppRoutes = () => {
 
-  return(
+  return (
     <BrowserRouter>
-      <Header/>
+      <Header />
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/index" element={<Index/>} />
-        <Route path="/details/:id" element={<Details/>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/index" element={<Index />} />
+        <Route path="/details/:id" element={<Details />} />
+        <Route path="/create" element={<Create />} />
       </Routes>
     </BrowserRouter>
   );

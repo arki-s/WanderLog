@@ -14,6 +14,7 @@ const Header = () => {
         </Link>
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
           <a className="text-xl mr-5 hover:text-gray-900"><Link to="/index">Index</Link></a>
+          <a className="text-xl mr-5 hover:text-gray-900"><Link to="/create">Add New Log</Link></a>
           {/* <a className="text-xl mr-5 hover:text-gray-900">Second Link</a>
       <a className="text-xl mr-5 hover:text-gray-900">Third Link</a>
       <a className="text-xl mr-5 hover:text-gray-900">Fourth Link</a> */}
