@@ -17,21 +17,59 @@ const Create = () => {
     <div className='relative h-screen pt-16'>
       <div className='m-5'>
         <h1>Add New Log</h1>
-        <div>
-          <DatePicker
-            selectsRange={true}
-            startDate={startDate}
-            endDate={endDate}
-            onChange={(update: [Date | null, Date | null]) => {
-              const convertedUpdate: [Date | undefined, Date | undefined] = [
-                update[0] ?? undefined,
-                update[1] ?? undefined,
-              ];
-              setDateRange(convertedUpdate);
-            }}
-            isClearable={true}
-            className='custom-datepicker'
-          />
+        <div className="pt-10">
+          <div className="pb-4">
+            <label>旅行期間：
+              <DatePicker
+                selectsRange={true}
+                startDate={startDate}
+                endDate={endDate}
+                onChange={(update: [Date | null, Date | null]) => {
+                  const convertedUpdate: [Date | undefined, Date | undefined] = [
+                    update[0] ?? undefined,
+                    update[1] ?? undefined,
+                  ];
+                  setDateRange(convertedUpdate);
+                }}
+                isClearable={true}
+                className='custom-datepicker'
+              />
+            </label>
+          </div>
+
+          <div className="pb-4">
+            <label>場所：
+              <input type="text" placeholder='場所、住所等' className="border border-gray-400 px-2 py-1 rounded-lg" />
+            </label>
+          </div>
+
+          <div className="pb-4">
+            <label>写真アップロード</label>
+          </div>
+
+          <div className="pb-4">
+            <label>コスト：
+              <input type="number" min="0" placeholder='円' className="border border-gray-400 px-2 py-1 rounded-lg" />
+            </label>
+          </div>
+
+          <div>
+            <label>評価：</label>
+          </div>
+
+          <div>
+            <label>
+              感想
+              <p>
+                <textarea cols={100} rows={10} className="border border-gray-400 px-2 py-1 rounded-lg">
+                  感じたこと、やったこと、なんでも記録に残しておきましょう！
+                </textarea>
+              </p>
+            </label>
+
+          </div>
+
+
         </div>
 
       </div>
