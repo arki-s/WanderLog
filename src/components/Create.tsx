@@ -1,12 +1,25 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import Stars from './Stars';
+import { useDropzone } from 'react-dropzone';
 
 const Create = () => {
   const [dateRange, setDateRange] = useState<[Date | undefined, Date | undefined]>([undefined, undefined]);
   const [startDate, endDate] = dateRange;
   const defaultRating = localStorage.getItem("starRating");
+  const [selectedImages, setSelectedImages] = useState<File[]>([]);
+
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    setSelectedImages(acceptedFiles);
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: 'image/*',
+    multiple: true,
+  });
+
   // フォームに含める内容
   // 開始日、終了日
   // 場所（地図入力+手動入力）
@@ -47,7 +60,28 @@ const Create = () => {
             </div>
 
             <div className="pb-4">
-              <label>写真アップロード</label>
+              <div
+                {...getRootProps()}
+                style={{
+                  border: '2px dashed #ccc',
+                  padding: '20px',
+                  textAlign: 'center',
+                }}
+              >
+                <input {...getInputProps()} />
+                <p>ドラッグ＆ドロップ、またはクリックして画像を選択</p>
+                <div>
+                  {selectedImages.map((file, index) => (
+                    <img
+                      key={index}
+                      src={URL.createObjectURL(file)}
+                      alt={`Preview ${index + 1}`}
+                      style={{ width: '100px', margin: '10px' }}
+                    />
+                  ))}
+                </div>
+              </div>
+
             </div>
 
             <div className="pb-4">
@@ -58,7 +92,7 @@ const Create = () => {
 
             <div>
               <label>評価：
-                <Stars iconSize={100} defaultRating={defaultRating} />
+                <Stars iconSize={50} defaultRating={defaultRating} />
               </label>
             </div>
 
