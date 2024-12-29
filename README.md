@@ -1,6 +1,6 @@
 # WanderLog
 
-![App Screenshot](./src/assets/Journey.png)
+![App Screenshot](./src/assets/Title.png)
 
 ## 概要
 
