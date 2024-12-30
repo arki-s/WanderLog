@@ -16,18 +16,12 @@ const Create = () => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: 'image/*',
+    accept: {
+      'image/*': [],
+    },
     multiple: true,
   });
 
-  // フォームに含める内容
-  // 開始日、終了日
-  // 場所（地図入力+手動入力）
-  // 写真アップロード(5枚まで。プレビュー表示)
-  // コスト
-  // 評価(星五段階)
-  // タグ選択(最大5個)
-  // 感想(1000文字以内)
   return (
     <div className='relative h-screen w-screen pt-16'>
       <div className='my-5 mx-auto' style={{ width: '80%' }}>

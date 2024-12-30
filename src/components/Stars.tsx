@@ -1,18 +1,18 @@
 import { useState } from "react";
 import "./Stars.css"
 
-const DEFAULT_COUNT = 5;
-const DEFAULT_ICON = "★";
-const DEFAULT_UNSELECTED_COLOR = "gray";
-const DEFAULT_COLOR = "yellow";
-
 type StarProps = {
   count?: number | null;
-  defaultRating: number;
+  defaultRating: any;
   icon?: string | null;
   color?: string | null;
   iconSize: number | null;
 }
+
+const DEFAULT_COUNT = 5;
+const DEFAULT_ICON = "★";
+const DEFAULT_UNSELECTED_COLOR = "gray";
+const DEFAULT_COLOR = "yellow";
 
 export default function Stars({ count, defaultRating, icon, color, iconSize }: StarProps) {
   const [rating, setRating] = useState(defaultRating);
@@ -28,7 +28,7 @@ export default function Stars({ count, defaultRating, icon, color, iconSize }: S
 
   return (
     <div className="starsContainer">
-      {stars.map((item, index) => {
+      {stars.map((_, index) => {
         const isActiveColor = (rating || temporaryRating) && (index < rating || index < temporaryRating);
 
         let elementColor = "";
