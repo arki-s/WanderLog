@@ -10,7 +10,7 @@ const Header = () => {
     <header className="text-gray-600 body-font w-screen bg-primary fixed top-0 z-50">
       <div className="mx-0 flex flex-wrap p-3 flex-row items-center justify-between">
         <Link to="/">
-          <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+          <a className="flex title-font font-medium items-center text-gray-900 md:mb-0">
             <img src={suitcase} className="w-12 h-12" />
             <span className="ml-3 text-3xl">WanderLog</span>
           </a>
