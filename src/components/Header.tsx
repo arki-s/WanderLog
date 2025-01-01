@@ -37,9 +37,6 @@ const Header = () => {
           } md:flex flex-col md:flex-row items-center text-base justify-center`}>
           <a className="text-xl mr-5 hover:text-gray-900"><Link to="/index">Index</Link></a>
           <a className="text-xl mr-5 hover:text-gray-900"><Link to="/create">Add New Log</Link></a>
-          {/* <a className="text-xl mr-5 hover:text-gray-900">Second Link</a>
-      <a className="text-xl mr-5 hover:text-gray-900">Third Link</a>
-      <a className="text-xl mr-5 hover:text-gray-900">Fourth Link</a> */}
         </nav>
         {/* <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Button
           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-1" viewBox="0 0 24 24">

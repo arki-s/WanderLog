@@ -15,7 +15,7 @@
 
 ## 使用技術
 
-- React(Vite), Typescript, TailwindCSS, CSS
+- React(Vite), Typescript, TailwindCSS, CSS, AWS(EC2)
 
 ## 開発の進捗
 
