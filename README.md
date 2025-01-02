@@ -15,7 +15,8 @@
 
 ## 使用技術
 
-- React(Vite), Typescript, TailwindCSS, CSS, AWS(EC2)
+- フロントエンド：React(Vite), Typescript, TailwindCSS, CSS
+- インフラ：AWS(EC2, Elastic IP)
 
 ## 開発の進捗
 
@@ -25,6 +26,11 @@
 - 地図機能
 - 写真アップロード機能
 - ユーザー認証
+
+## Demo
+
+アプリ(開発中)はこちらからご覧いただけます。
+[https://wanderlog.rslab.dev](https://wanderlog.rslab.dev)
 
 ## License
 
