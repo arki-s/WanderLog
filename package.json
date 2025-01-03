@@ -4,10 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev:client": "vite",
+    "build:client": "tsc -b && vite build",
+    "preview:client": "vite preview",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "dev:server": "cd server && ts-node src/app.ts",
+    "build:server": "cd server && tsc",
+    "start:server": "cd server && node dist/app.js"
   },
   "dependencies": {
     "react": "^18.3.1",
