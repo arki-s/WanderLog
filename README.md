@@ -16,6 +16,7 @@
 ## 使用技術
 
 - フロントエンド：React(Vite), Typescript, TailwindCSS, CSS
+- バックエンド：Express
 - インフラ：AWS(EC2, Elastic IP)
 
 ## 開発の進捗

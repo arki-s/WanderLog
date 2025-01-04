@@ -8,9 +8,9 @@
     "build:client": "tsc -b && vite build",
     "preview:client": "vite preview",
     "lint": "eslint .",
-    "dev:server": "cd server && ts-node src/app.ts",
+    "dev:server": "cd server && ts-node src/index.ts",
     "build:server": "cd server && tsc",
-    "start:server": "cd server && node dist/app.js"
+    "start:server": "cd server && node dist/index.js"
   },
   "dependencies": {
     "react": "^18.3.1",
