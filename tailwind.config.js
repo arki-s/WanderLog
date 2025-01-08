@@ -31,7 +31,17 @@ export default {
             'background-color': '#9BE8D8',
           },
           '&:focus': {
-            'outline': '2px solid #bfdbfe',
+            'outline': '2px solid #78C1F3',
+          },
+        },
+        '.btn-cancel': {
+          'background-color': '#7E99A3',
+          'color': '#E2F6CA',
+          '&:hover': {
+            'background-color': '#4C585B',
+          },
+          '&:focus': {
+            'outline': '2px solid #A5BFCC',
           },
         },
       });

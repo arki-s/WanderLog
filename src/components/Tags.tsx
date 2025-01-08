@@ -9,7 +9,8 @@ export const Tags = () => {
       <div className='modalContent'>
         <p className='pb-3'>タグを新規追加</p>
         <input type="text" placeholder='名前を入力' className='p-1 m-2 border border-primaryLight rounded-md' />
-        <button className='btn btn-primary' onClick={() => setModal(false)}>閉じる</button>
+        <button className='btn btn-primary mb-2' onClick={() => setModal(false)}>保存</button>
+        <button className='btn btn-cancel' onClick={() => setModal(false)}>閉じる</button>
 
       </div>
     </div>
