@@ -72,3 +72,9 @@
   padding: 2rem;
   border-radius: 0.5rem;
 }
+
+.editIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+}
