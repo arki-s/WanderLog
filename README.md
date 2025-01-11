@@ -17,7 +17,7 @@
 
 - フロントエンド：React(Vite), Typescript, TailwindCSS, CSS
 - バックエンド：Express, Typescript
-- インフラ：AWS(EC2, Elastic IP)
+- インフラ：AWS(EC2, Elastic IP, RDS)
 
 ## 開発の進捗
 
