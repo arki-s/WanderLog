@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { pool } from './utils/createPool';
+import { getTags } from './routes/getTags'
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -34,3 +35,5 @@ app.get('/ping', (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
+
+app.get('/tags', getTags);
