@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import { pool } from '../utils/createPool';
 import mysql from 'mysql2/promise';
 
@@ -31,3 +31,8 @@ async function getTagsData():Promise<any[]>{
     throw error;
   }
 }
+
+const tagsRouter = Router();
+tagsRouter.get('/', getTags);
+
+export default tagsRouter;
