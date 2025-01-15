@@ -2,13 +2,15 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { pool } from './utils/createPool';
-import { getTags } from './routes/getTags'
+import { getTags } from './controllers/getTags'
 import mainRouter from './routes/mainRouter';
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-dotenv.config();
 
+app.use(express.json());
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE', 'HEAD'],

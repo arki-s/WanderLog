@@ -1,5 +1,5 @@
 import { Router } from "express";
-import tagsRouter from './getTags';
+import tagsRouter from "./tagsRouter";
 
 const mainRouter = Router();
 
