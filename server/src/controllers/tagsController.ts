@@ -27,14 +27,14 @@ export const getTags = async (req: Request, res: Response):Promise<any> => {
 }
 
 export const createTags = async (req: Request, res: Response):Promise<any>  => {
-  const {UserID: UserIdInput, Name: NameInput} = req.body;
+  const {userId: userIdInput, name: nameInput} = req.body;
 
-  if (!UserIdInput || !NameInput){
+  if (!userIdInput || !nameInput){
     return res.status(400).json({error: 'UserId and Name are required'});
   }
 
-  const userId = Number(UserIdInput);
-  const name = NameInput;
+  const userId = Number(userIdInput);
+  const name = nameInput;
 
   try {
     const connection = await pool.getConnection();

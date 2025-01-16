@@ -10,22 +10,35 @@ export const Tags = () => {
   const [editingTag, setEditingTag] = useState({ Id: 0, Name: "" });
   const [tags, setTags] = useState<TagType[]>([]);
   const [loading, setLoading] = useState(true);
+  const [needsUpdate, setNeedsUpdate] = useState(false);
+
+  const loadTags = async () => {
+    try {
+      const res = await tagAPI.showTag();
+      setTags(res.data.data);
+    } catch (error) {
+      console.log("failed to fetch tags");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
-    const loadTags = async () => {
-      try {
-        const res = await tagAPI.showTag();
-        console.log('API Response:', res.data);
-        setTags(res.data.data);
-      } catch (error) {
-        console.log("failed to fetch tags");
-      } finally {
-        setLoading(false);
-      }
+    loadTags();
+  }, [needsUpdate]);
+
+  async function addTag(userId: number, name: string) {
+    try {
+      const response = await tagAPI.createTag(userId, name);
+      console.log("Tag created:", response.data);
+
+      setNeedsUpdate((prev) => !prev);
+    } catch (error) {
+      console.error("Error creating tag:", error);
     }
 
-    loadTags();
-  }, []);
+    setModal(null);
+  };
 
   // const mockTags = [
   //   { id: 1, name: "サンプルタグ" },
@@ -43,7 +56,7 @@ export const Tags = () => {
   const list = tags.length > 0 ? tags.map((tag) => {
     return (
       <div key={tag.Id} className='flex justify-start gap-2 mb-2'>
-        <p>{tag.Name}</p>
+        <p>{tag.Id} {tag.Name}</p>
         <div onClick={() => { setModal("edit"); setEditingTag({ Id: tag.Id, Name: tag.Name }) }}><img src={Pen} alt="Edit" className='editIcon' /></div>
         <div onClick={() => { setModal("delete"); setEditingTag({ Id: tag.Id, Name: tag.Name }) }}><img src={TrashCan} alt="Delete" className='editIcon' /></div>
       </div>
@@ -68,8 +81,10 @@ export const Tags = () => {
     <div className="modalContainer">
       <div className='modalContent'>
         <p className='pb-3'>{modal == "create" ? "タグを新規作成" : "タグを編集"}</p>
-        <input type="text" placeholder='名前を入力' value={modal == "edit" ? editingTag.Name : ""} className='p-1 m-2 border border-primaryLight rounded-md' />
-        <button className='btn btn-primary mb-2' >保存</button>
+        <input type="text" placeholder='名前を入力' value={editingTag.Name}
+          onChange={(e) => setEditingTag({ ...editingTag, Name: e.target.value })}
+          className='p-1 m-2 border border-primaryLight rounded-md' />
+        <button className='btn btn-primary mb-2' onClick={() => addTag(1, editingTag.Name)}>保存</button>
         <button className='btn btn-cancel' onClick={() => { setModal(null); setEditingTag({ Id: 0, Name: "" }) }}>閉じる</button>
 
       </div>

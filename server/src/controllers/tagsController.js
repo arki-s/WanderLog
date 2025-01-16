@@ -32,12 +32,12 @@ const getTags = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getTags = getTags;
 const createTags = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { UserID: UserIdInput, Name: NameInput } = req.body;
-    if (!UserIdInput || !NameInput) {
+    const { userId: userIdInput, name: nameInput } = req.body;
+    if (!userIdInput || !nameInput) {
         return res.status(400).json({ error: 'UserId and Name are required' });
     }
-    const userId = Number(UserIdInput);
-    const name = NameInput;
+    const userId = Number(userIdInput);
+    const name = nameInput;
     try {
         const connection = yield createPool_1.pool.getConnection();
         try {
