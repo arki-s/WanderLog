@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { pool } from './utils/createPool';
-import { getTags } from './controllers/getTags'
+import { getTags } from './controllers/tagsController'
 import mainRouter from './routes/mainRouter';
 
 dotenv.config();
