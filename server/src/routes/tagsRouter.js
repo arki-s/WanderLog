@@ -5,4 +5,6 @@ const tagsController_1 = require("../controllers/tagsController");
 const tagsRouter = (0, express_1.Router)();
 tagsRouter.get('/', tagsController_1.getTags);
 tagsRouter.post('/', tagsController_1.createTags);
+tagsRouter.put('/:id', tagsController_1.updateTags);
+tagsRouter.delete('/:id', tagsController_1.deleteTags);
 exports.default = tagsRouter;

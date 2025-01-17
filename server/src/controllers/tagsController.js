@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createTags = exports.getTags = void 0;
+exports.deleteTags = exports.updateTags = exports.createTags = exports.getTags = void 0;
 const createPool_1 = require("../utils/createPool");
 const getTags = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -58,3 +58,58 @@ const createTags = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.createTags = createTags;
+const updateTags = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId: userIdInput, tagId: tagIdInput, name: nameInput } = req.body;
+    if (!userIdInput || !tagIdInput || !nameInput) {
+        return res.status(400).json({ error: 'UserId, TagId and Name are required' });
+    }
+    const userId = Number(userIdInput);
+    const tagId = Number(tagIdInput);
+    const name = nameInput;
+    try {
+        const connection = yield createPool_1.pool.getConnection();
+        try {
+            const [validTag] = yield connection.query('SELECT Id FROM tags WHERE Id = ? AND UserId = ? AND Name = ?', [tagId, userId, name]);
+            if (validTag.length === 0) {
+                return res.status(400).json({ error: 'Tag not found' });
+            }
+            const [result] = yield connection.query('UPDATE tags SET name = ? WHERE Id = ?', [name, tagId]);
+            res.status(200).json({ success: true, tagId, userId, name });
+        }
+        finally {
+            connection.release();
+        }
+    }
+    catch (error) {
+        console.error('Error in updateTags:', error);
+        res.status(500).json({ error: 'Failed to update tag' });
+    }
+});
+exports.updateTags = updateTags;
+const deleteTags = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tagId: tagIdInput } = req.body;
+    if (!req.query.userId || !tagIdInput) {
+        return res.status(400).json({ error: 'UserId, TagId are required' });
+    }
+    const userId = Number(req.query.userId);
+    const tagId = Number(tagIdInput);
+    try {
+        const connection = yield createPool_1.pool.getConnection();
+        try {
+            const [validTag] = yield connection.query('SELECT Id FROM tags WHERE Id = ? AND UserId = ?', [tagId, userId]);
+            if (validTag.length === 0) {
+                return res.status(400).json({ error: 'Tag not found' });
+            }
+            const [result] = yield connection.query('DELETE FROM tags WHERE Id = ?', [tagId]);
+            res.status(200).json({ success: true, tagId, userId });
+        }
+        finally {
+            connection.release();
+        }
+    }
+    catch (error) {
+        console.error('Error in deleteTags:', error);
+        res.status(500).json({ error: 'Failed to delete tag' });
+    }
+});
+exports.deleteTags = deleteTags;
