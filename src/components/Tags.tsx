@@ -40,9 +40,6 @@ export const Tags = () => {
   };
 
   async function editTag(userId: number, tagId: number, name: string) {
-    console.log(userId);
-    console.log(editingTag.Id);
-    console.log(editingTag.Name);
     try {
       const response = await tagAPI.updateTag(userId, tagId, name);
       console.log("Tag edited", response.data);
@@ -72,7 +69,7 @@ export const Tags = () => {
     </div>
   );
 
-  const list = tags.length > 0 ? tags.map((tag) => {
+  const list = tags?.length > 0 ? tags.map((tag) => {
     return (
       <div key={tag.Id} className='flex justify-start gap-2 mb-2'>
         <p>{tag.Id} {tag.Name}</p>
