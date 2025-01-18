@@ -36,16 +36,35 @@ export const Tags = () => {
     } catch (error) {
       console.error("Error creating tag:", error);
     }
-
     setModal(null);
   };
 
-  // const mockTags = [
-  //   { id: 1, name: "サンプルタグ" },
-  //   { id: 2, name: "サンプルタグ2" },
-  //   { id: 3, name: "サンプルタグ3" },
-  //   { id: 4, name: "サンプルタグ4" }
-  // ];
+  async function editTag(userId: number, tagId: number, name: string) {
+    console.log(userId);
+    console.log(editingTag.Id);
+    console.log(editingTag.Name);
+    try {
+      const response = await tagAPI.updateTag(userId, tagId, name);
+      console.log("Tag edited", response.data);
+
+      setNeedsUpdate((prev) => !prev);
+    } catch (error) {
+      console.error("Error editing tag:", error);
+    }
+    setModal(null);
+  };
+
+  async function deleteTag(userId: number, tagId: number) {
+    try {
+      const response = await tagAPI.deleteTag(userId, tagId);
+      console.log("Tag deleted", response.data);
+
+      setNeedsUpdate((prev) => !prev);
+    } catch (error) {
+      console.error("Error deleting tag:", error);
+    }
+    setModal(null);
+  };
 
   const lordmessage = (loading || !tags) && (
     <div>
@@ -67,16 +86,6 @@ export const Tags = () => {
     </div>
   );
 
-  // const tagList = mockTags.map((tag) => {
-  //   return (
-  //     <div key={tag.id} className='flex justify-start gap-2 mb-2'>
-  //       <p>{tag.name}</p>
-  //       <div onClick={() => { setModal("edit"); setEditingTag({ id: tag.id, name: tag.name }) }}><img src={Pen} alt="Edit" className='editIcon' /></div>
-  //       <div onClick={() => { setModal("delete"); setEditingTag({ id: tag.id, name: tag.name }) }}><img src={TrashCan} alt="Delete" className='editIcon' /></div>
-  //     </div>
-  //   )
-  // });
-
   const tagModal = (
     <div className="modalContainer">
       <div className='modalContent'>
@@ -84,7 +93,8 @@ export const Tags = () => {
         <input type="text" placeholder='名前を入力' value={editingTag.Name}
           onChange={(e) => setEditingTag({ ...editingTag, Name: e.target.value })}
           className='p-1 m-2 border border-primaryLight rounded-md' />
-        <button className='btn btn-primary mb-2' onClick={() => addTag(1, editingTag.Name)}>保存</button>
+        <button className='btn btn-primary mb-2'
+          onClick={() => { modal == "create" ? addTag(1, editingTag.Name) : editTag(1, editingTag.Id, editingTag.Name) }}>保存</button>
         <button className='btn btn-cancel' onClick={() => { setModal(null); setEditingTag({ Id: 0, Name: "" }) }}>閉じる</button>
 
       </div>
@@ -96,7 +106,9 @@ export const Tags = () => {
       <div className='modalContent'>
         <p className='pb-3'>「{editingTag.Name}」を削除しますか？<br />この操作は取り消すことができません。</p>
         <div className='w-40 m-auto'>
-          <button className='btn btn-primary mb-2' >削除する</button>
+          <button className='btn btn-primary mb-2'
+            onClick={() => deleteTag(1, editingTag.Id)}
+          >削除する</button>
           <button className='btn btn-cancel' onClick={() => { setModal(null); setEditingTag({ Id: 0, Name: "" }) }}>閉じる</button>
         </div>
       </div>
@@ -115,8 +127,6 @@ export const Tags = () => {
         </div>
         {(modal == "create" || modal == "edit") && tagModal}
         {modal == "delete" && deleteModal}
-
-
       </div>
 
     </div>

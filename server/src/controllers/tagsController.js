@@ -59,7 +59,8 @@ const createTags = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.createTags = createTags;
 const updateTags = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId: userIdInput, tagId: tagIdInput, name: nameInput } = req.body;
+    const { userId: userIdInput, name: nameInput } = req.body;
+    const { id: tagIdInput } = req.params;
     if (!userIdInput || !tagIdInput || !nameInput) {
         return res.status(400).json({ error: 'UserId, TagId and Name are required' });
     }
@@ -69,9 +70,13 @@ const updateTags = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const connection = yield createPool_1.pool.getConnection();
         try {
-            const [validTag] = yield connection.query('SELECT Id FROM tags WHERE Id = ? AND UserId = ? AND Name = ?', [tagId, userId, name]);
+            const [validTag] = yield connection.query('SELECT Id FROM tags WHERE Id = ? AND UserId = ?', [tagId, userId]);
             if (validTag.length === 0) {
                 return res.status(400).json({ error: 'Tag not found' });
+            }
+            const [validName] = yield connection.query('SELECT Id FROM tags WHERE UserId = ? AND Name = ?', [userId, name]);
+            if (validName.length > 0) {
+                return res.status(400).json({ error: 'Same tag already exsits' });
             }
             const [result] = yield connection.query('UPDATE tags SET name = ? WHERE Id = ?', [name, tagId]);
             res.status(200).json({ success: true, tagId, userId, name });
@@ -87,21 +92,22 @@ const updateTags = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.updateTags = updateTags;
 const deleteTags = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { tagId: tagIdInput } = req.body;
-    if (!req.query.userId || !tagIdInput) {
+    const { id } = req.params;
+    const { userId } = req.query;
+    if (!userId || !id) {
         return res.status(400).json({ error: 'UserId, TagId are required' });
     }
-    const userId = Number(req.query.userId);
-    const tagId = Number(tagIdInput);
+    const UserId = Number(userId);
+    const tagId = Number(id);
     try {
         const connection = yield createPool_1.pool.getConnection();
         try {
-            const [validTag] = yield connection.query('SELECT Id FROM tags WHERE Id = ? AND UserId = ?', [tagId, userId]);
+            const [validTag] = yield connection.query('SELECT Id FROM tags WHERE Id = ? AND UserId = ?', [tagId, UserId]);
             if (validTag.length === 0) {
                 return res.status(400).json({ error: 'Tag not found' });
             }
             const [result] = yield connection.query('DELETE FROM tags WHERE Id = ?', [tagId]);
-            res.status(200).json({ success: true, tagId, userId });
+            res.status(200).json({ success: true, tagId, UserId });
         }
         finally {
             connection.release();

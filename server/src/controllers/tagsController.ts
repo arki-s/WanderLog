@@ -63,7 +63,8 @@ export const createTags = async (req: Request, res: Response):Promise<any>  => {
 }
 
 export const updateTags = async (req: Request, res: Response):Promise<any>  => {
-  const {userId: userIdInput, tagId: tagIdInput, name: nameInput} = req.body;
+  const {userId: userIdInput, name: nameInput} = req.body;
+  const {id: tagIdInput} = req.params;
 
   if (!userIdInput || !tagIdInput || !nameInput){
     return res.status(400).json({error: 'UserId, TagId and Name are required'});
@@ -78,11 +79,19 @@ export const updateTags = async (req: Request, res: Response):Promise<any>  => {
 
     try {
       const [validTag] = await connection.query<mysql.RowDataPacket[]>(
-        'SELECT Id FROM tags WHERE Id = ? AND UserId = ? AND Name = ?',[tagId, userId, name]
+        'SELECT Id FROM tags WHERE Id = ? AND UserId = ?',[tagId, userId]
       );
 
       if (validTag.length === 0){
         return res.status(400).json({error: 'Tag not found'});
+      }
+
+      const [validName] = await connection.query<mysql.RowDataPacket[]>(
+        'SELECT Id FROM tags WHERE UserId = ? AND Name = ?',[userId, name]
+      );
+
+      if (validName.length > 0){
+        return res.status(400).json({error: 'Same tag already exsits'});
       }
 
       const [result] = await connection.query('UPDATE tags SET name = ? WHERE Id = ?',[name, tagId]);
@@ -100,21 +109,22 @@ export const updateTags = async (req: Request, res: Response):Promise<any>  => {
 }
 
 export const deleteTags = async (req: Request, res: Response):Promise<any>  => {
-  const {tagId: tagIdInput} = req.body;
+  const {id} = req.params;
+  const {userId} = req.query;
 
-  if (!req.query.userId || !tagIdInput){
+  if (!userId || !id){
     return res.status(400).json({error: 'UserId, TagId are required'});
   }
 
-  const userId = Number(req.query.userId);
-  const tagId = Number(tagIdInput);
+  const UserId = Number(userId);
+  const tagId = Number(id);
 
   try {
     const connection = await pool.getConnection();
 
     try {
       const [validTag] = await connection.query<mysql.RowDataPacket[]>(
-        'SELECT Id FROM tags WHERE Id = ? AND UserId = ?',[tagId, userId]
+        'SELECT Id FROM tags WHERE Id = ? AND UserId = ?',[tagId, UserId]
       );
 
       if (validTag.length === 0){
@@ -123,7 +133,7 @@ export const deleteTags = async (req: Request, res: Response):Promise<any>  => {
 
       const [result] = await connection.query('DELETE FROM tags WHERE Id = ?',[tagId]);
 
-      res.status(200).json({success:true, tagId, userId});
+      res.status(200).json({success:true, tagId, UserId});
     } finally {
       connection.release();
     }
