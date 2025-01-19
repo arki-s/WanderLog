@@ -8,7 +8,7 @@ const Home = () => {
       <div className="absolute top-1/4">
         <h1 className='p-3' style={{ textShadow: shadow }}>旅の記憶を</h1>
         <h1 className='p-3' style={{ textShadow: shadow }}>手軽に残そう</h1>
-        <h1 className="text-8xl p-3" style={{ textShadow: shadow }}>WanderLog</h1>
+        <h1 className="text-6xl md:text-8xl p-3" style={{ textShadow: shadow }}>WanderLog</h1>
       </div>
 
     </div>

@@ -114,18 +114,19 @@ export const Tags = () => {
 
 
   return (
-    <div className='relative h-screen pt-16'>
-      <div className="p-1 md:p-3">
+    <div className='relative w-screen pt-16'>
+      <div className='my-5 mx-auto' style={{ width: '80%' }}>
         <h1 className='pb-5'>Tags</h1>
         <button className='btn btn-primary' onClick={() => setModal("create")}>新しいタグを作成</button>
         <div className='py-2'>
-          {lordmessage}
-          {list}
+          <div className="p-1 md:p-3">
+            {lordmessage}
+            {list}
+          </div>
         </div>
         {(modal == "create" || modal == "edit") && tagModal}
         {modal == "delete" && deleteModal}
       </div>
-
     </div>
   )
 }
