@@ -78,3 +78,13 @@
   height: 1.5rem;
   cursor: pointer;
 }
+
+.tagContainer {
+  border-radius: 12px;
+  padding: 8px 10px 8px 10px;
+  border-width: 2px;
+  border-color: #9BE8D8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

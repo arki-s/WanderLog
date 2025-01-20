@@ -71,10 +71,12 @@ export const Tags = () => {
 
   const list = tags?.length > 0 ? tags.map((tag) => {
     return (
-      <div key={tag.Id} className='flex justify-start gap-2 mb-2'>
-        <p>{tag.Id} {tag.Name}</p>
-        <div onClick={() => { setModal("edit"); setEditingTag({ Id: tag.Id, Name: tag.Name }) }}><img src={Pen} alt="Edit" className='editIcon' /></div>
-        <div onClick={() => { setModal("delete"); setEditingTag({ Id: tag.Id, Name: tag.Name }) }}><img src={TrashCan} alt="Delete" className='editIcon' /></div>
+      <div key={tag.Id} className='mb-2 tagContainer'>
+        <p className='text-2xl'>{tag.Id} {tag.Name}</p>
+        <div className='flex gap-2'>
+          <div onClick={() => { setModal("edit"); setEditingTag({ Id: tag.Id, Name: tag.Name }) }}><img src={Pen} alt="Edit" className='editIcon' /></div>
+          <div onClick={() => { setModal("delete"); setEditingTag({ Id: tag.Id, Name: tag.Name }) }}><img src={TrashCan} alt="Delete" className='editIcon' /></div>
+        </div>
       </div>
     )
   }) : (
