@@ -23,7 +23,7 @@ const Create = () => {
   });
 
   return (
-    <div className='relative h-screen w-screen pt-16'>
+    <div className='relative h-screen w-screen pt-20 md:pt-16'>
       <div className='my-5 mx-auto' style={{ width: '80%' }}>
         <div>
           <h1>Add New Log</h1>

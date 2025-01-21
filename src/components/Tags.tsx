@@ -116,7 +116,7 @@ export const Tags = () => {
 
 
   return (
-    <div className='relative w-screen pt-16'>
+    <div className='relative w-screen pt-20 md:pt-16'>
       <div className='my-5 mx-auto' style={{ width: '80%' }}>
         <h1 className='pb-5'>Tags</h1>
         <button className='btn btn-primary' onClick={() => setModal("create")}>新しいタグを作成</button>
