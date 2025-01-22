@@ -9,6 +9,13 @@ const Create = () => {
   const [startDate, endDate] = dateRange;
   const defaultRating = localStorage.getItem("starRating");
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [newLog, setNewLog] = useState({
+    userId: 0,
+    address: "",
+    cost: 0,
+    rating: 0,
+    comment: "",
+  })
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setSelectedImages(acceptedFiles);
@@ -21,6 +28,13 @@ const Create = () => {
     },
     multiple: true,
   });
+
+  function saveNewLog() {
+    if (dateRange.includes(undefined)) return;
+    setNewLog({ ...newLog, userId: 1 });
+
+    console.log(newLog);
+  }
 
   return (
     <div className='relative h-screen w-screen pt-20 md:pt-16'>
@@ -79,7 +93,7 @@ const Create = () => {
 
             <div className="pb-4 flex justify-between items-center">
               <label>コスト：</label>
-              <input type="number" min="0" placeholder='円' className="border border-gray-400 px-2 py-1 rounded-lg" />
+              <input type="number" min="0" placeholder='円' onChange={(e) => setNewLog({ ...newLog, cost: parseInt(e.target.value) })} className="border border-gray-400 px-2 py-1 rounded-lg" />
             </div>
 
             <div className="pb-4 flex justify-between items-center">
