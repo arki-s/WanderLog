@@ -7,7 +7,6 @@ import { useDropzone } from 'react-dropzone';
 const Create = () => {
   const [dateRange, setDateRange] = useState<[Date | undefined, Date | undefined]>([undefined, undefined]);
   const [startDate, endDate] = dateRange;
-  const defaultRating = localStorage.getItem("starRating");
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [newLog, setNewLog] = useState({
     userId: 0,
@@ -16,6 +15,7 @@ const Create = () => {
     rating: 0,
     comment: "",
   })
+  const defaultRating = newLog.rating;
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setSelectedImages(acceptedFiles);
@@ -35,6 +35,8 @@ const Create = () => {
 
     console.log(newLog);
   }
+
+  console.log(newLog);
 
   return (
     <div className='relative h-screen w-screen pt-20 md:pt-16'>
@@ -62,7 +64,7 @@ const Create = () => {
 
             <div className="pb-4 flex justify-between items-center">
               <label>場所：</label>
-              <input type="text" placeholder='場所、住所等' className="border border-gray-400 px-3 py-2 rounded-lg" />
+              <input type="text" onChange={(e) => setNewLog({ ...newLog, address: e.target.value })} placeholder='場所、住所等' className="border border-gray-400 px-3 py-2 rounded-lg" />
             </div>
 
             <div className="pb-4">
@@ -105,7 +107,7 @@ const Create = () => {
               <label>感想:
               </label>
               <p>
-                <textarea rows={10} className="w-full border border-gray-400 px-2 py-1 rounded-lg">
+                <textarea onChange={(e) => { setNewLog({ ...newLog, comment: e.target.value }) }} rows={10} className="w-full border border-gray-400 px-2 py-1 rounded-lg">
                   感じたこと、やったこと、なんでも記録に残しておきましょう！
                 </textarea>
               </p>
