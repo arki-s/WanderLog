@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import { pool } from '../utils/createPool';
 import mysql from 'mysql2/promise';
 
-export const getTags = async (req: Request, res: Response):Promise<any> => {
+export const getLogs = async (req: Request, res: Response):Promise<any> => {
 
   try {
     const connection = await pool.getConnection();
