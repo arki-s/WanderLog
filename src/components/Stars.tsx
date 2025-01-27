@@ -13,7 +13,7 @@ type StarProps = {
 const DEFAULT_COUNT = 5;
 const DEFAULT_ICON = "★";
 const DEFAULT_UNSELECTED_COLOR = "gray";
-const DEFAULT_COLOR = "yellow";
+const DEFAULT_COLOR = "#78C1F3";
 
 export default function Stars({ count, defaultRating, icon, color, iconSize, onChange }: StarProps) {
   const [rating, setRating] = useState(defaultRating);
