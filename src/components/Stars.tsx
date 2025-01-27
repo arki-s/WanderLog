@@ -7,6 +7,7 @@ type StarProps = {
   icon?: string | null;
   color?: string | null;
   iconSize: number | null;
+  onChange: (rating: number) => void;
 }
 
 const DEFAULT_COUNT = 5;
@@ -14,16 +15,16 @@ const DEFAULT_ICON = "★";
 const DEFAULT_UNSELECTED_COLOR = "gray";
 const DEFAULT_COLOR = "yellow";
 
-export default function Stars({ count, defaultRating, icon, color, iconSize }: StarProps) {
+export default function Stars({ count, defaultRating, icon, color, iconSize, onChange }: StarProps) {
   const [rating, setRating] = useState(defaultRating);
   const [temporaryRating, setTemporaryRating] = useState(0);
 
   let stars = Array(count || DEFAULT_COUNT).fill(icon);
 
-  const handleClick = (rating: any) => {
+  const handleClick = (rating: number) => {
     setRating(rating);
-    localStorage.setItem("starRating", rating);
-
+    // localStorage.setItem("starRating", rating);
+    onChange(rating);
   };
 
   return (

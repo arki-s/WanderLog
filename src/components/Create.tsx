@@ -15,7 +15,6 @@ const Create = () => {
     rating: 0,
     comment: "",
   })
-  const defaultRating = newLog.rating;
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setSelectedImages(acceptedFiles);
@@ -100,7 +99,8 @@ const Create = () => {
 
             <div className="pb-4 flex justify-between items-center">
               <label>評価：</label>
-              <Stars iconSize={50} defaultRating={defaultRating} />
+              <Stars iconSize={50} defaultRating={newLog.rating}
+                onChange={(rating) => setNewLog((prev) => ({ ...prev, rating }))} />
             </div>
 
             <div>
