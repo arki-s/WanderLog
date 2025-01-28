@@ -6,6 +6,7 @@ import Details from './components/Details'
 import Header from './components/Header'
 import Create from './components/Create'
 import Tags from './components/Tags'
+import Login from './components/Login'
 
 
 const AppRoutes = () => {
@@ -19,6 +20,7 @@ const AppRoutes = () => {
         <Route path="/details/:id" element={<Details />} />
         <Route path="/create" element={<Create />} />
         <Route path="/tags" element={<Tags />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
