@@ -15,7 +15,7 @@ export const register:RequestHandler = async (req: Request, res: Response):Promi
 
   const hashedPassword = await bcrypt.hash(password, 10);
   const connection = await pool.getConnection();
-  await connection.query("INSERT INTO users (email, password) VALUES (?, ?)", [email, hashedPassword]);
+  await connection.query("INSERT INTO users (Email, Password) VALUES (?, ?)", [email, hashedPassword]);
   connection.release();
 
   const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: "1h" });
@@ -25,7 +25,7 @@ export const register:RequestHandler = async (req: Request, res: Response):Promi
 export const login:RequestHandler = async (req: Request, res: Response):Promise<void> => {
   const { email, password } = req.body;
   const connection = await pool.getConnection();
-  const [rows]: any = await connection.query("SELECT * FROM users WHERE email = ?", [email]);
+  const [rows]: any = await connection.query("SELECT * FROM users WHERE Email = ?", [email]);
   connection.release();
 
   if (rows.length === 0) {

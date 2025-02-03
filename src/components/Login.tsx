@@ -6,9 +6,6 @@ const Login = () => {
     password: ""
   });
 
-  console.log(user);
-
-
   return (
     <div className='relative w-screen pt-20 md:pt-16'>
       <div className='my-5 mx-auto' style={{ width: '80%' }}>
