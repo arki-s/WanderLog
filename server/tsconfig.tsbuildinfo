@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/controllers/authcontroller.ts","./src/controllers/logscontroller.ts","./src/controllers/tagscontroller.ts","./src/middlewares/authmiddleware.ts","./src/routes/authrouter.ts","./src/routes/logsrouter.ts","./src/routes/mainrouter.ts","./src/routes/tagsrouter.ts","./src/utils/createpool.ts"],"version":"5.7.3"}

@@ -5,4 +5,9 @@ export const authAPI = {
     return axiosClient.post(`/auth/login`, {email, password});
   },
 
+  getUser:() => {
+    return axiosClient.get("/auth/me");
+
+  },
+
 };

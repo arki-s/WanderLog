@@ -25,7 +25,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     const hashedPassword = yield bcryptjs_1.default.hash(password, 10);
     const connection = yield createPool_1.pool.getConnection();
-    yield connection.query("INSERT INTO users (email, password) VALUES (?, ?)", [email, hashedPassword]);
+    yield connection.query("INSERT INTO users (Email, Password) VALUES (?, ?)", [email, hashedPassword]);
     connection.release();
     const token = jsonwebtoken_1.default.sign({ email }, JWT_SECRET, { expiresIn: "1h" });
     res.json({ token });
@@ -33,24 +33,40 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.register = register;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
+    if (!email || !password) {
+        res.status(400).json({ error: "Email and password are required" });
+        return;
+    }
     const connection = yield createPool_1.pool.getConnection();
-    const [rows] = yield connection.query("SELECT * FROM users WHERE email = ?", [email]);
-    connection.release();
-    if (rows.length === 0) {
-        res.status(400).json({ error: "Invalid credentials" });
-        return;
+    try {
+        const [rows] = yield connection.query("SELECT * FROM users WHERE Email = ?", [email]);
+        if (rows.length === 0) {
+            res.status(400).json({ error: "Invalid credentials" });
+            return;
+        }
+        const user = rows[0];
+        const isMatch = yield bcryptjs_1.default.compare(password, user.password);
+        if (!isMatch) {
+            res.status(400).json({ error: "Invalid credentials" });
+            return;
+        }
+        const token = jsonwebtoken_1.default.sign({ email }, JWT_SECRET, { expiresIn: "1h" });
+        res.json({ token });
     }
-    const user = rows[0];
-    const isMatch = yield bcryptjs_1.default.compare(password, user.password);
-    if (!isMatch) {
-        res.status(400).json({ error: "Invalid credentials" });
-        return;
+    catch (error) {
+        console.error("Login Error:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
-    const token = jsonwebtoken_1.default.sign({ email }, JWT_SECRET, { expiresIn: "1h" });
-    res.json({ token });
+    finally {
+        connection.release();
+    }
 });
 exports.login = login;
 const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!req.user) {
+        res.status(401).json({ error: "Unauthorized" });
+        return;
+    }
     res.json(req.user);
 });
 exports.getUser = getUser;
